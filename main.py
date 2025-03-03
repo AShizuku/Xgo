@@ -1,8 +1,8 @@
 import json
 import time
-import GET
+import Xgo.GET as GET
 import datetime
-import DtsPRO
+import Xgo.DtsPRO as DtsPRO
 
 # 获取json
 def resp2_feed(json_id):
