@@ -30,7 +30,7 @@ def content(resp2):
         f"💙 时间：{data_timestamp}\n\n"
     )
     ddts = DtsPRO.send_dingtalk_message(data_picArr[0],resp2.json()['data']['id'],data_message_title,content,data_link_url)
-    print(content)
+    # print(content)
 
 # 全局变量，用于存储已处理过的ID
 processed_ids = set()
@@ -48,7 +48,7 @@ def main(resp,js_data=0):
             js_data +=1
             print(f"🎉有新的消息了! TOP:{js_data} ID:{new_id}")
             resp2_feed(new_id)
-            time.sleep(10)
+            time.sleep(1)
             
     except Exception as e:
         print(f"发生错误: {e}❌")
