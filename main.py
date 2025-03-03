@@ -30,7 +30,7 @@ def content(resp2):
         f"💙 时间：{data_timestamp}\n\n"
     )
     ddts = DtsPRO.send_dingtalk_message(data_picArr[0],resp2.json()['data']['id'],data_message_title,content,data_link_url)
-    # print(content)
+    #print(content)
 
 # 全局变量，用于存储已处理过的ID
 processed_ids = set()
