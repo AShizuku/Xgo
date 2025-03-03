@@ -6,10 +6,10 @@ import DtsPRO
 import os
 import random
 
-push_enabled = os.getenv("DDTS_PUSH", "False").lower() == "true"
+PUSH_ENABLED = os.getenv('PUSH_ENABLED', 'True').lower() in ('true', '1', 't')
 min_delay=1
 max_delay=3
-if push_enabled == False:
+if PUSH_ENABLED == False:
     print("推送功能未启用")
 
 # 获取json
@@ -37,7 +37,7 @@ def content(resp2):
         f"🧡 参数: {config}\n\n"
         f"💙 时间：{data_timestamp}\n\n"
     )
-    if push_enabled:
+    if PUSH_ENABLED:
         # 如果环境变量设置为True，则调用发送消息的方法
         result = DtsPRO.send_dingtalk_message()
         # print(f"推送结果：{result}")
