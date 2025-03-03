@@ -18,7 +18,6 @@ def resp2_feed(json_id):
     resp2 = GET.get_url(url2)
     content(resp2)
 
-
 # 获取json数据
 def content(resp2):
     if resp2.json()['data']['istag'] == 1 or resp2.json()['data']['ershou_info']['product_config_data'] == '' :
