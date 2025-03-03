@@ -3,6 +3,14 @@ import time
 import GET
 import datetime
 import DtsPRO
+import os
+import random
+
+push_enabled = os.getenv("DDTS_PUSH", "False").lower() == "true"
+min_delay=1
+max_delay=3
+if push_enabled == False:
+    print("推送功能未启用")
 
 # 获取json
 def resp2_feed(json_id):
@@ -29,8 +37,11 @@ def content(resp2):
         f"🧡 参数: {config}\n\n"
         f"💙 时间：{data_timestamp}\n\n"
     )
-    ddts = DtsPRO.send_dingtalk_message(data_picArr[0],resp2.json()['data']['id'],data_message_title,content,data_link_url)
-    #print(content)
+    if push_enabled:
+        # 如果环境变量设置为True，则调用发送消息的方法
+        result = DtsPRO.send_dingtalk_message()
+        # print(f"推送结果：{result}")
+    # print(content)
 
 # 全局变量，用于存储已处理过的ID
 processed_ids = set()
@@ -47,8 +58,9 @@ def main(resp,js_data=0):
         for new_id in new_ids:
             js_data +=1
             print(f"🎉有新的消息了! TOP:{js_data} ID:{new_id}")
-            resp2_feed(new_id)
-            time.sleep(1)
+            last_id = new_ids[-1]
+            resp2_feed(last_id)
+            time.sleep(0.1)
             
     except Exception as e:
         print(f"发生错误: {e}❌")
@@ -65,6 +77,9 @@ if __name__ == "__main__":
         retry_count = 0
         while retry_count < max_retries:
             try:
+                delay = random.uniform(min_delay, max_delay)
+                print(f"随机延时：{delay:.2f}秒")
+                time.sleep(delay)  # 添加延时
                 resp = GET.get_url(url1)  # 发起请求
                 if resp and resp.status_code == 200:
                     print("GET 成功，开始处理数据✔️")
