@@ -6,7 +6,7 @@ import hmac
 import hashlib
 import base64
 import urllib.parse
-import Xgo.GET as GET
+import GET
 
 
 def get_img_token():
