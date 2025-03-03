@@ -39,7 +39,7 @@ def content(resp2):
     )
     if PUSH_ENABLED:
         # 如果环境变量设置为True，则调用发送消息的方法
-        result = DtsPRO.send_dingtalk_message()
+        DtsPRO.send_dingtalk_message(data_picArr[0],resp2.json()['data']['id'],data_message_title,content,data_link_url)
         # print(f"推送结果：{result}")
     # print(content)
 
